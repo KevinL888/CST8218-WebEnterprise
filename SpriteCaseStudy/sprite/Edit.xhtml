@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditSpriteTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table" style="margin: 0 auto;"/>
+            </h:panelGroup>
+            <h:form style="text-align: center; display: block;">
+                <h:panelGrid columns="3" style="border:dashed 1px; margin: 0 auto;">
+                    <h:outputLabel value="#{bundle.EditSpriteLabel_panelWidth}" for="panelWidth" />
+                    <h:inputText id="panelWidth" value="#{spriteController.selected.panelWidth}" title="#{bundle.EditSpriteTitle_panelWidth}" 
+                                 validatorMessage="panelWidth value is required and needs to be a positive numeric value." converterMessage="panelWidth value needs to be a positive numeric value.">
+                        <f:validateRequired/>
+                        <f:validateLongRange minimum="0"></f:validateLongRange>
+                        <f:ajax render="panelWidthMessage"/>
+                    </h:inputText>
+                    <h:message id="panelWidthMessage" for="panelWidth" />
+                    <h:outputLabel value="#{bundle.EditSpriteLabel_panelHeight}" for="panelHeight" />
+                    <h:inputText id="panelHeight" value="#{spriteController.selected.panelHeight}" title="#{bundle.EditSpriteTitle_panelHeight}" 
+                                 validatorMessage="panelHeight value is required and needs to be a positive numeric value." converterMessage="panelHeight value needs to be a positive numeric value.">
+                        <f:validateLongRange minimum="0"></f:validateLongRange>
+                        <f:ajax render="panelHeightMessage"/>
+                        <f:validateRequired/>
+                    </h:inputText>
+                    <h:message id="panelHeightMessage" for="panelHeight" />
+                    <h:outputLabel value="#{bundle.EditSpriteLabel_x}" for="x" />
+                    <h:inputText id="x" value="#{spriteController.selected.x}" title="#{bundle.EditSpriteTitle_x}" 
+                                 validatorMessage="X value is required and needs to be a positive numeric value." converterMessage="X value needs to be a positive numeric value.">
+                        <f:validateLongRange minimum="0"></f:validateLongRange>
+                        <f:ajax render="xMessage"/>
+                        <f:validateRequired/>
+                    </h:inputText>
+                    <h:message id="xMessage" for="x" />
+                    <h:outputLabel value="#{bundle.EditSpriteLabel_y}" for="y" />
+                    <h:inputText id="y" value="#{spriteController.selected.y}" title="#{bundle.EditSpriteTitle_y}" 
+                                 validatorMessage="Y value is required and needs to be a positive numeric value." converterMessage="Y value needs to be a positive numeric value.">
+                       <f:validateLongRange minimum="0"></f:validateLongRange>
+                       <f:ajax render="yMessage"/>
+                       <f:validateRequired/>
+                    </h:inputText>
+                    <h:message id="yMessage" for="y" />
+                    <h:outputLabel value="#{bundle.EditSpriteLabel_dx}" for="dx" />
+                    <h:inputText id="dx" value="#{spriteController.selected.dx}" title="#{bundle.EditSpriteTitle_dx}" 
+                                 validatorMessage="value is required" converterMessage="Dx value needs to be a positive numeric value.">
+                        <f:validateLongRange></f:validateLongRange>
+                        <f:ajax render="dxMessage"/>
+                        <f:validateRequired/>
+                    </h:inputText>
+                    <h:message id="dxMessage" for="dx" />
+                    <h:outputLabel value="#{bundle.EditSpriteLabel_dy}" for="dy" />
+                    <h:inputText id="dy" value="#{spriteController.selected.dy}" title="#{bundle.EditSpriteTitle_dy}" 
+                                 validatorMessage="value is required" converterMessage="Dy value needs to be a positive numeric value.">
+                        <f:validateLongRange></f:validateLongRange>
+                        <f:ajax render="dyMessage"/>
+                        <f:validateRequired/>   
+                    </h:inputText>
+                    <h:message id="dyMessage" for="dy" />
+                    <h:outputLabel value="#{bundle.EditSpriteLabel_color}" for="color" />
+                    <h:inputText id="color" value="#{spriteController.selected.color}" title="#{bundle.EditSpriteTitle_color}" validatorMessage="Color value is required">
+                         <f:converter converterId="pages.SpriteController.ColorConverter"></f:converter>
+                          <f:validateRequired/>
+                          <f:ajax render="colorMessage"/>                                                 
+                    </h:inputText>
+                    <h:message id="colorMessage" for="color" />
+                </h:panelGrid>
+                <h:commandLink action="#{spriteController.update}" value="#{bundle.EditSpriteSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditSpriteViewLink}"/>
+                <br />
+                <h:commandLink action="#{spriteController.prepareList}" value="#{bundle.EditSpriteShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditSpriteIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

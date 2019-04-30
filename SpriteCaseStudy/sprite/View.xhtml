@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewSpriteTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table" style="margin: 0 auto;"/>
+            </h:panelGroup>
+            <h:form style="text-align: center; display: block;">
+                <h:panelGrid columns="2" style="border:dashed 1px; margin: 0 auto;">
+                    <h:outputText value="#{bundle.ViewSpriteLabel_id}"/>
+                    <h:outputText value="#{spriteController.selected.id}" title="#{bundle.ViewSpriteTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewSpriteLabel_panelWidth}"/>
+                    <h:outputText value="#{spriteController.selected.panelWidth}" title="#{bundle.ViewSpriteTitle_panelWidth}"/>
+                    <h:outputText value="#{bundle.ViewSpriteLabel_panelHeight}"/>
+                    <h:outputText value="#{spriteController.selected.panelHeight}" title="#{bundle.ViewSpriteTitle_panelHeight}"/>
+                    <h:outputText value="#{bundle.ViewSpriteLabel_x}"/>
+                    <h:outputText value="#{spriteController.selected.x}" title="#{bundle.ViewSpriteTitle_x}"/>
+                    <h:outputText value="#{bundle.ViewSpriteLabel_y}"/>
+                    <h:outputText value="#{spriteController.selected.y}" title="#{bundle.ViewSpriteTitle_y}"/>
+                    <h:outputText value="#{bundle.ViewSpriteLabel_dx}"/>
+                    <h:outputText value="#{spriteController.selected.dx}" title="#{bundle.ViewSpriteTitle_dx}"/>
+                    <h:outputText value="#{bundle.ViewSpriteLabel_dy}"/>
+                    <h:outputText value="#{spriteController.selected.dy}" title="#{bundle.ViewSpriteTitle_dy}"/>
+                    <h:outputText value="#{bundle.ViewSpriteLabel_color}"/>
+                    <h:outputText value="#{spriteController.selected.color}" title="#{bundle.ViewSpriteTitle_color}">
+                    <f:converter converterId="pages.SpriteController.ColorConverter"/>
+                    </h:outputText>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{spriteController.destroyAndView}" value="#{bundle.ViewSpriteDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewSpriteEditLink}"/>
+                <br />
+                <h:commandLink action="#{spriteController.prepareCreate}" value="#{bundle.ViewSpriteCreateLink}" />
+                <br />
+                <h:commandLink action="#{spriteController.prepareList}" value="#{bundle.ViewSpriteShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewSpriteIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

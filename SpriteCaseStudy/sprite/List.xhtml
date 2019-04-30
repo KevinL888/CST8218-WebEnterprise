@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+                Sprite Game
+            
+        </ui:define>
+        <ui:define name="body">
+            <h:graphicImage value = "/images/balls.png" style="text-align: center; display: block; justify-content: center; margin: 0 auto;"/> 
+            <h:form styleClass="jsfcrud_list_form" style="text-align: center; display: block;">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table" style="margin: 0 auto;"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListSpriteEmpty}" rendered="#{spriteController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{spriteController.items.rowCount > 0}">
+                    <h:outputText value="[Showing #{spriteController.pagination.pageLastItem + 1} out of #{spriteController.pagination.itemsCount}]"/>&nbsp;
+                    <h:commandLink action="#{spriteController.previous}" value="#{bundle.Previous} #{spriteController.pagination.pageSize}" rendered="#{spriteController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{spriteController.next}" value="#{bundle.Next} #{spriteController.pagination.pageSize}" rendered="#{spriteController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{spriteController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:dashed 1px; margin: 0 auto;">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSpriteTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSpriteTitle_panelWidth}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.panelWidth}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSpriteTitle_panelHeight}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.panelHeight}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSpriteTitle_x}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.x}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSpriteTitle_y}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.y}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSpriteTitle_dx}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dx}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSpriteTitle_dy}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dy}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSpriteTitle_color}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.color}">
+                                <f:converter converterId="pages.SpriteController.ColorConverter"/>
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{spriteController.prepareView}" value="#{bundle.ListSpriteViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{spriteController.prepareEdit}" value="#{bundle.ListSpriteEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{spriteController.destroy}" value="#{bundle.ListSpriteDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{spriteController.prepareCreate}" value="#{bundle.ListSpriteCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListSpriteIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

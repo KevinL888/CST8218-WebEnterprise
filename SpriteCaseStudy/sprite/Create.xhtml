@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateSpriteTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table" style="margin: 0 auto;"/>
+            </h:panelGroup>
+            <h:form style="text-align: center; display: block;">
+
+                <table columns="3" role="presentation" style="border:dashed 1px; margin: 0 auto;">
+                    <tr>
+                        <td><h:outputLabel value="#{bundle.CreateSpriteLabel_panelWidth}" for="panelWidth" /></td>
+                        <td><h:inputText id="panelWidth" value="#{spriteController.selected.panelWidth}" title="#{bundle.CreateSpriteTitle_panelWidth}" requiredMessage="value is required" validatorMessage="panelWidth value is required and needs to be a positive numeric value." converterMessage="panelWidth value needs to be a positive numeric value.">
+                                <f:validateLongRange minimum="0"></f:validateLongRange>
+                                <f:validateRequired/>
+                                <f:ajax render="panelWidthMessage"/>
+                                
+                            </h:inputText></td>
+                        <td><h:message id="panelWidthMessage" for="panelWidth" /></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLabel value="#{bundle.CreateSpriteLabel_panelHeight}" for="panelHeight" /></td>
+                        <td><h:inputText id="panelHeight" value="#{spriteController.selected.panelHeight}" title="#{bundle.CreateSpriteTitle_panelHeight}" requiredMessage="value is required" validatorMessage="panelHeight value is required and needs to be a positive numeric value." converterMessage="panelHeight value needs to be a positive numeric value.">
+                                <f:validateLongRange minimum="0"></f:validateLongRange>
+                                <f:ajax render="panelHeightMessage"/>
+                                <f:validateRequired/>
+                            </h:inputText></td>
+                        <td><h:message id="panelHeightMessage" for="panelHeight" /></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLabel value="#{bundle.CreateSpriteLabel_x}" for="x" /></td>
+                        <td><h:inputText id="x" value="#{spriteController.selected.x}" title="#{bundle.CreateSpriteTitle_x}" requiredMessage="value is required" validatorMessage="X value is required and needs to be a positive numeric value." converterMessage="X value needs to be a positive numeric value." >
+                                <f:validateLongRange minimum="0"></f:validateLongRange>
+                                <f:ajax render="xMessage"/>
+                                <f:validateRequired/>
+                            </h:inputText></td>
+                        <td><h:message id="xMessage" for="x" /></td>                                      
+                    </tr>
+                    <tr>                        
+                        <td><h:outputLabel value="#{bundle.CreateSpriteLabel_y}" for="y" /></td>
+                        <td><h:inputText id="y" value="#{spriteController.selected.y}" title="#{bundle.CreateSpriteTitle_y}" requiredMessage="value is required." validatorMessage="Y value is required and needs to be a positive numeric value." converterMessage="Y value needs to be a positive numeric value.">
+                                <f:validateLongRange minimum="0"></f:validateLongRange>
+                                <f:ajax render="yMessage"/>
+                                <f:validateRequired/>
+                            </h:inputText> </td>
+                        <td><h:message id="yMessage" for="y" /></td>   
+                    </tr>
+                     <tr>
+                        <td><h:outputLabel value="#{bundle.CreateSpriteLabel_dx}" for="dx" /></td>
+                        <td><h:inputText id="dx" value="#{spriteController.selected.dx}" title="#{bundle.CreateSpriteTitle_dx}" requiredMessage="value is required." validatorMessage="value is required." converterMessage="Dx value needs to be numeric.">
+                                <f:ajax render="dxMessage"/>
+                                <f:validateRequired/>
+                            </h:inputText></td>
+                        <td><h:message id="dxMessage" for="dx" /></td> 
+                    </tr>
+                    <tr>
+                        <td> <h:outputLabel value="#{bundle.CreateSpriteLabel_dy}" for="dy" /> </td>
+                        <td> <h:inputText id="dy" value="#{spriteController.selected.dy}" title="#{bundle.CreateSpriteTitle_dy}" requiredMessage="value is required." validatorMessage="value is required." converterMessage="Dy value needs to be numeric.">
+                                <f:ajax render="dyMessage"/>
+                                <f:validateRequired/>                              
+                            </h:inputText></td>
+                        <td><h:message id="dyMessage" for="dy" /></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLabel value="#{bundle.CreateSpriteLabel_color}" for="color" /></td>
+                        <td><h:inputText id="color" value="#{spriteController.selected.color}" title="#{bundle.CreateSpriteTitle_color}" validatorMessage="value is required.">
+                                <f:converter converterId="pages.SpriteController.ColorConverter"></f:converter>                                                             
+                                <f:validateRequired/>
+                                <f:ajax render="colorMessage"/>                                                           
+                            </h:inputText></td>
+                        <td><h:message id="colorMessage" for="color" /></td>
+                    </tr>
+                </table>
+
+                <br />
+                <h:commandLink action="#{spriteController.create}" value="#{bundle.CreateSpriteSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{spriteController.prepareList}" value="#{bundle.CreateSpriteShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateSpriteIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

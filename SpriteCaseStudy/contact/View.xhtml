@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewContactTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table" style="margin: 0 auto;"/>
+            </h:panelGroup>
+            <h:form style="text-align: center; display: block;">
+                <h:panelGrid columns="2" style="border:dashed 1px; margin: 0 auto;">
+                    <h:outputText value="#{bundle.ViewContactLabel_id}"/>
+                    <h:outputText value="#{contactController.selected.id}" title="#{bundle.ViewContactTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewContactLabel_birthday}"/>
+                    <h:outputText value="#{contactController.selected.birthday}" title="#{bundle.ViewContactTitle_birthday}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewContactLabel_email}"/>
+                    <h:outputText value="#{contactController.selected.email}" title="#{bundle.ViewContactTitle_email}"/>
+                    <h:outputText value="#{bundle.ViewContactLabel_firstname}"/>
+                    <h:outputText value="#{contactController.selected.firstname}" title="#{bundle.ViewContactTitle_firstname}"/>
+                    <h:outputText value="#{bundle.ViewContactLabel_groupname}"/>
+                    <h:outputText value="#{contactController.selected.groupname}" title="#{bundle.ViewContactTitle_groupname}"/>
+                    <h:outputText value="#{bundle.ViewContactLabel_homephone}&nbsp;"/>
+                    <h:outputText value="#{contactController.selected.homephone}" title="#{bundle.ViewContactTitle_homephone}"/>
+                    <h:outputText value="#{bundle.ViewContactLabel_lastname}"/>
+                    <h:outputText value="#{contactController.selected.lastname}" title="#{bundle.ViewContactTitle_lastname}"/>
+                    <h:outputText value="#{bundle.ViewContactLabel_mobilephone}&nbsp;"/>
+                    <h:outputText value="#{contactController.selected.mobilephone}" title="#{bundle.ViewContactTitle_mobilephone}"/>
+                    <h:outputText value="#{bundle.ViewContactLabel_password}"/>
+                    <h:outputText value="*****" title="#{bundle.ViewContactTitle_password}"/> 
+                    
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{contactController.destroyAndView}" value="#{bundle.ViewContactDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewContactEditLink}"/>
+                <br />
+                <h:commandLink action="#{contactController.prepareCreate}" value="#{bundle.ViewContactCreateLink}" />
+                <br />
+                <h:commandLink action="#{contactController.prepareList}" value="#{bundle.ViewContactShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewContactIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

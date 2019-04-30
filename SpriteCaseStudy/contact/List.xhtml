@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+<!--            <h:outputText value="#{bundle.ListContactTitle}"></h:outputText>-->
+            <h:graphicImage value = "/images/sprite.png" style="text-align: center; display: block; justify-content: center; margin: 0 auto;"/>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form" style="text-align: center; display: block;">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table" style="margin: 0 auto;"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListContactEmpty}" rendered="#{contactController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{contactController.items.rowCount > 0}">
+                    <h:outputText value="[Showing #{contactController.pagination.pageLastItem + 1} out of #{contactController.pagination.itemsCount}]"/>&nbsp;
+                    <h:commandLink action="#{contactController.previous}" value="#{bundle.Previous} #{contactController.pagination.pageSize}" rendered="#{contactController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{contactController.next}" value="#{bundle.Next} #{contactController.pagination.pageSize}" rendered="#{contactController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{contactController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:dashed 1px; margin: 0 auto;">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListContactTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListContactTitle_birthday}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.birthday}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListContactTitle_email}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.email}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListContactTitle_firstname}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.firstname}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListContactTitle_groupname}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.groupname}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListContactTitle_homephone}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.homephone}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListContactTitle_lastname}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.lastname}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListContactTitle_mobilephone}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.mobilephone}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListContactTitle_password}"/>
+                            </f:facet>
+                            <h:outputText value="*****"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{contactController.prepareView}" value="#{bundle.ListContactViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{contactController.prepareEdit}" value="#{bundle.ListContactEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{contactController.destroy}" value="#{bundle.ListContactDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{contactController.prepareCreate}" value="#{bundle.ListContactCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListContactIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

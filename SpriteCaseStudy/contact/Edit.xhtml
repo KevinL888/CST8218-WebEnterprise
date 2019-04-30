@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditContactTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table" style="margin: 0 auto;"/>
+            </h:panelGroup>
+            <h:form style="text-align: center; display: block;">
+                <h:panelGrid columns="3" style="border:dashed 1px; margin: 0 auto;">
+                    <h:outputLabel value="#{bundle.EditContactLabel_birthday}" for="birthday" />
+                    <h:inputText id="birthday" value="#{contactController.selected.birthday}" title="#{bundle.EditContactTitle_birthday}" converterMessage="Birthday format is mm/dd/yyyy" validatorMessage="Birthday value is required and format is mm//dd/yyyy">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                        <f:ajax render="birthdayMessage"/>
+                        <f:validateRequired/>
+                    </h:inputText>
+                    <h:message id="birthdayMessage" for="birthday" />
+                    <h:outputLabel value="#{bundle.EditContactLabel_email}" for="email" />
+                    <h:inputText id="email" value="#{contactController.selected.email}" title="#{bundle.EditContactTitle_email}" validatorMessage="Username value is required.">
+                        <f:ajax render="emailMessage"/>
+                        <f:validateRequired/>
+                    </h:inputText>
+                    <h:message id="emailMessage" for="email" />
+                    <h:outputLabel value="#{bundle.EditContactLabel_firstname}" for="firstname" />
+                    <h:inputText id="firstname" value="#{contactController.selected.firstname}" title="#{bundle.EditContactTitle_firstname}" validatorMessage="Firstname value is required.">
+                        <f:ajax render="firstnameMessage"/>
+                        <f:validateRequired/>
+                    </h:inputText>
+                    <h:message id="firstnameMessage" for="firstname" />
+                    <h:outputLabel value="#{bundle.EditContactLabel_lastname}" for="lastname" />
+                    <h:inputText id="lastname" value="#{contactController.selected.lastname}" title="#{bundle.EditContactTitle_lastname}" validatorMessage="Lastname value is required.">
+                        <f:ajax render="lastnameMessage"/>
+                        <f:validateRequired/>
+                    </h:inputText>
+                    <h:message id="lastnameMessage" for="lastname" />
+                    <h:outputLabel value="#{bundle.EditContactLabel_homephone}" for="homephone" />
+                    <h:inputText id="homephone" value="#{contactController.selected.homephone}" title="#{bundle.EditContactTitle_homephone}" converterMessage="homephone number must be numeric and length of 10" validatorMessage="Homephone value is required and length must be 10">                    
+                        <f:validateRequired/>
+                        <f:validateLength minimum="10" maximum="10"/>
+                        <f:validateRegex pattern="[0-9]+"/>
+                        <f:ajax render="homephoneMessage"/>
+                    </h:inputText>
+                    <h:message id="homephoneMessage" for="homephone" />
+                    <h:outputLabel value="#{bundle.EditContactLabel_mobilephone}" for="mobilephone" />
+                    <h:inputText id="mobilephone" value="#{contactController.selected.mobilephone}" title="#{bundle.EditContactTitle_mobilephone}" converterMessage="mobile phone number must be numeric and length of 10" validatorMessage="Mobilephone value is required and length must be 10">
+                        <f:validateRequired/>
+                        <f:ajax render="mobilephoneMessage"/>
+                        <f:validateRegex pattern="[0-9]+"/>
+                        <f:validateLength minimum="10" maximum="10"/>
+                    </h:inputText>
+                    <h:message id="mobilephoneMessage" for="mobilephone" />
+                    <h:outputLabel value="#{bundle.EditContactLabel_password}" for="password" />
+                    <h:inputSecret id="password" value="#{contactController.selected.password}" title="#{bundle.EditContactTitle_password}" converterMessage="Password must consist of 8 or more chracters (1 lowercase, 1 uppercase, 1 digit) and no spaces" validatorMessage="Password value is required and must consist of 8 or more chracters (1 lowercase, 1 uppercase, 1 digit) and no spaces">
+                        <f:validateRequired/>
+                        <f:validateRegex pattern="^(?=.*[0-9])(?=.*[a-z])(?=\S+$).{8,}$"/>
+                        <f:ajax render="passwordMessage"/>
+                    </h:inputSecret>
+                    <h:message id="passwordMessage" for="password" />
+                </h:panelGrid>
+                <h:commandLink action="#{contactController.update}" value="#{bundle.EditContactSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditContactViewLink}"/>
+                <br />
+                <h:commandLink action="#{contactController.prepareList}" value="#{bundle.EditContactShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditContactIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
